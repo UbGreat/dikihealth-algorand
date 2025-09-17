@@ -1,8 +1,10 @@
-import React from 'react'
+import { Menu, X } from 'lucide-react' // icon library
+import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const Navbar: React.FC = () => {
   const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -20,7 +22,7 @@ const Navbar: React.FC = () => {
           DikiHealth
         </Link>
 
-        {/* Nav Links */}
+        {/* Desktop Nav */}
         <div className="hidden md:flex space-x-6">
           {navItems.map((item) => (
             <Link
@@ -32,7 +34,30 @@ const Navbar: React.FC = () => {
             </Link>
           ))}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button className="md:hidden text-white focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
+
+      {/* Mobile Menu (Slide-down) */}
+      {menuOpen && (
+        <div className="md:hidden bg-teal-700">
+          <div className="flex flex-col space-y-4 px-4 py-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setMenuOpen(false)} // close menu after navigation
+                className={`text-white hover:text-gray-200 transition ${location.pathname === item.path ? 'font-bold underline' : ''}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   )
 }

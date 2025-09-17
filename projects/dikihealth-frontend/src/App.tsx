@@ -69,7 +69,6 @@ export default function App() {
             <Route path="/medical-assets" element={<MedicalAssets />} />
             <Route path="/emergency-response" element={<EmergencyResponse />} />
           </Routes>
-          <Home />
         </WalletProvider>
       </SnackbarProvider>
     </>
