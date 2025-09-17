@@ -6,6 +6,9 @@
     },
     {
       "path": "projects/dikihealth-algorand"
+    },
+    {
+      "path": "projects/dikihealth-frontend"
     }
   ],
   "settings": {
