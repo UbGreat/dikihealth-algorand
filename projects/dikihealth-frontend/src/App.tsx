@@ -1,6 +1,7 @@
 import { SupportedWallet, WalletId, WalletManager, WalletProvider } from '@txnlab/use-wallet-react'
 import { SnackbarProvider } from 'notistack'
 import { Route, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar'
 import EHR from './Ehr'
 import EmergencyResponse from './EmergencyResponse'
 import Home from './Home'
@@ -57,17 +58,20 @@ export default function App() {
   })
 
   return (
-    <SnackbarProvider maxSnack={3}>
-      <WalletProvider manager={walletManager}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/ehr" element={<EHR />} />
-          <Route path="/remote-monitoring" element={<RemoteMonitoring />} />
-          <Route path="/medical-assets" element={<MedicalAssets />} />
-          <Route path="/emergency-response" element={<EmergencyResponse />} />
-        </Routes>
-        <Home />
-      </WalletProvider>
-    </SnackbarProvider>
+    <>
+      <Navbar />
+      <SnackbarProvider maxSnack={3}>
+        <WalletProvider manager={walletManager}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/ehr" element={<EHR />} />
+            <Route path="/remote-monitoring" element={<RemoteMonitoring />} />
+            <Route path="/medical-assets" element={<MedicalAssets />} />
+            <Route path="/emergency-response" element={<EmergencyResponse />} />
+          </Routes>
+          <Home />
+        </WalletProvider>
+      </SnackbarProvider>
+    </>
   )
 }
