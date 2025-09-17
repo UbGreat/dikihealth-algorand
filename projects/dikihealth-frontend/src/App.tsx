@@ -1,6 +1,11 @@
 import { SupportedWallet, WalletId, WalletManager, WalletProvider } from '@txnlab/use-wallet-react'
 import { SnackbarProvider } from 'notistack'
+import { Route, Routes } from 'react-router-dom'
+import EHR from './Ehr'
+import EmergencyResponse from './EmergencyResponse'
 import Home from './Home'
+import MedicalAssets from './MedicalAssets'
+import RemoteMonitoring from './RemoteMonitoring '
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
 let supportedWallets: SupportedWallet[]
@@ -26,6 +31,11 @@ if (import.meta.env.VITE_ALGOD_NETWORK === 'localnet') {
   ]
 }
 
+// const EHR = () => <div className="p-6">EHR Page</div>
+// const RemoteMonitoring = () => <div className="p-6">Remote Monitoring Page</div>
+// const MedicalAssets = () => <div className="p-6">Medical Assets (ASA) Page</div>
+// const EmergencyResponse = () => <div className="p-6">Emergency Response Page</div>
+
 export default function App() {
   const algodConfig = getAlgodConfigFromViteEnvironment()
 
@@ -49,6 +59,13 @@ export default function App() {
   return (
     <SnackbarProvider maxSnack={3}>
       <WalletProvider manager={walletManager}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/ehr" element={<EHR />} />
+          <Route path="/remote-monitoring" element={<RemoteMonitoring />} />
+          <Route path="/medical-assets" element={<MedicalAssets />} />
+          <Route path="/emergency-response" element={<EmergencyResponse />} />
+        </Routes>
         <Home />
       </WalletProvider>
     </SnackbarProvider>

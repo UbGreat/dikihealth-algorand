@@ -1,6 +1,7 @@
 // src/components/Home.tsx
 import { useWallet } from '@txnlab/use-wallet-react'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 
@@ -11,47 +12,53 @@ const Home: React.FC<HomeProps> = () => {
   const [openDemoModal, setOpenDemoModal] = useState<boolean>(false)
   const { activeAddress } = useWallet()
 
-  const toggleWalletModal = () => {
-    setOpenWalletModal(!openWalletModal)
-  }
-
-  const toggleDemoModal = () => {
-    setOpenDemoModal(!openDemoModal)
-  }
+  const toggleWalletModal = () => setOpenWalletModal(!openWalletModal)
+  const toggleDemoModal = () => setOpenDemoModal(!openDemoModal)
 
   return (
     <div className="hero min-h-screen bg-teal-400">
-      <div className="hero-content text-center rounded-lg p-6 max-w-md bg-white mx-auto">
-        <div className="max-w-md">
-          <h1 className="text-4xl">
-            Welcome to <div className="font-bold">AlgoKit 🙂</div>
+      <div className="hero-content text-center rounded-lg p-6 max-w-2xl bg-white mx-auto shadow-xl">
+        <div className="max-w-2xl space-y-6">
+          <h1 className="text-4xl font-bold">
+            Welcome to <span className="text-teal-600">DikiHealth</span> 🚑
           </h1>
-          <p className="py-6">
-            This starter has been generated using official AlgoKit React template. Refer to the resource below for next steps.
+          <p className="text-gray-700">
+            Your decentralized platform for Healthcare Records, Remote Patient Monitoring, Medical Asset Management, and Emergency Response
+            powered by Algorand.
           </p>
 
-          <div className="grid">
-            <a
-              data-test-id="getting-started"
-              className="btn btn-primary m-2"
-              target="_blank"
-              href="https://github.com/algorandfoundation/algokit-cli"
-            >
-              Getting started
-            </a>
-
-            <div className="divider" />
-            <button data-test-id="connect-wallet" className="btn m-2" onClick={toggleWalletModal}>
-              Wallet Connection
+          {/* Wallet and Transactions */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button data-test-id="connect-wallet" className="btn btn-primary" onClick={toggleWalletModal}>
+              Connect Wallet
             </button>
 
             {activeAddress && (
-              <button data-test-id="transactions-demo" className="btn m-2" onClick={toggleDemoModal}>
+              <button data-test-id="transactions-demo" className="btn btn-secondary" onClick={toggleDemoModal}>
                 Transactions Demo
               </button>
             )}
           </div>
 
+          <div className="divider" />
+
+          {/* Sections */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link to="/ehr" className="btn btn-outline">
+              Electronic Health Records (EHR)
+            </Link>
+            <Link to="/remote-monitoring" className="btn btn-outline">
+              Remote Monitoring
+            </Link>
+            <Link to="/medical-assets" className="btn btn-outline">
+              Medical Assets (ASA)
+            </Link>
+            <Link to="/emergency-response" className="btn btn-outline">
+              Emergency Response
+            </Link>
+          </div>
+
+          {/* Modals */}
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
           <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
         </div>
